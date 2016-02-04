@@ -1,0 +1,21 @@
+{
+    "name": "hyn/laravel-flarum",
+    "description": "Integrating Flarum into Laravel.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel+hyn@klabbers.email",
+            "homepage": "http://hyn.io"
+        }
+    ],
+    "require": {
+        "flarum/core": "dev-master as 0.1.0",
+        "laravel/framework": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyn\\LaravelFlarum\\": "src/"
+        }
+    }
+}
