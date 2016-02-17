@@ -3,8 +3,6 @@
 namespace Hyn\LaravelFlarum\Providers;
 
 use Flarum\Database\DatabaseMigrationRepository;
-use Flarum\Foundation\AbstractServiceProvider;
-use Flarum\Foundation\Application;
 use Flarum\Install\Prerequisite\Composite;
 use Flarum\Install\Prerequisite\PhpExtensions;
 use Flarum\Install\Prerequisite\PhpVersion;
@@ -41,28 +39,28 @@ class FlarumServiceProvider extends ServiceProvider
 
         $this->flarumListeners();
 
+//        $this->app->singleton('Illuminate\Database\ConnectionResolverInterface', function () {
+//            return $this->app->make('db');
+//        });
+//        $this->app->singleton('Flarum\Database\MigrationRepositoryInterface', function ($app) {
+//            return new DatabaseMigrationRepository($app['db'], 'migrations');
+//        });
+//
+//        $this->app->singleton('Flarum\Settings\SettingsRepositoryInterface', function () {
+//            return new MemoryCacheSettingsRepository(
+//                new DatabaseSettingsRepository(
+//                    $this->app->make('Illuminate\Database\ConnectionInterface')
+//                )
+//            );
+//        });
+//
+//        $this->app->alias('Flarum\Settings\SettingsRepositoryInterface', 'flarum.settings');
+//
+//        $this->installCommand();
+
         if (!app()->runningInConsole()) {
             $this->setupServer();
         }
-
-        $this->app->singleton('Illuminate\Database\ConnectionResolverInterface', function () {
-            return $this->app->make('db');
-        });
-        $this->app->singleton('Flarum\Database\MigrationRepositoryInterface', function ($app) {
-            return new DatabaseMigrationRepository($app['db'], 'migrations');
-        });
-
-        $this->app->singleton('Flarum\Settings\SettingsRepositoryInterface', function () {
-            return new MemoryCacheSettingsRepository(
-                new DatabaseSettingsRepository(
-                    $this->app->make('Illuminate\Database\ConnectionInterface')
-                )
-            );
-        });
-
-        $this->app->alias('Flarum\Settings\SettingsRepositoryInterface', 'flarum.settings');
-
-        $this->installCommand();
     }
 
     protected function installCommand()
@@ -143,7 +141,7 @@ class FlarumServiceProvider extends ServiceProvider
      */
     protected function setupFlarumServer($name = 'forum')
     {
-        $serverName = "\\Flarum\\" . studly_case($name) . "\\Server";
+        $serverName = "\\Hyn\\LaravelFlarum\\Flarum\\" . studly_case($name) . "\\Server";
         $server     = new $serverName(base_path());
         $server->setConfig($this->getConfiguration());
 
